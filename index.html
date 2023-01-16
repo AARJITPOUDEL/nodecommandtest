@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Node Command Executer</title>
+</head>
+<body>
+
+<button id="myButton">Run Node Command</button>
+
+<script>
+  document.getElementById("myButton").onclick = function() {
+    // Call your Node.js command here
+    const spawn = require('child_process').spawn;
+    const command = spawn('node', ['your_command.js']);
+
+    command.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+    });
+
+    command.stderr.on('data', (data) => {
+      console.log(`stderr: ${data}`);
+    });
+
+    command.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+  }
+</script>
+</body>
+</html>
